@@ -1,0 +1,13 @@
+.hide{
+  display:none;
+}
+.container{
+  display:grid;
+  grid-template-columns: auto auto auto;
+}
+.content{
+  border:3px solid red;
+  width:300px;
+  margin: 10px 20px;
+  padding: 10px;
+}
