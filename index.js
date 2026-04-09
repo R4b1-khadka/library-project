@@ -36,7 +36,7 @@ function handleDom(books){
       container.innerHTML='';
 
   let read;
-  for(let book of books){
+  for( book of books){
 
     
     if (book.isRead==true){
@@ -56,14 +56,15 @@ function handleDom(books){
                          <p>${read}</p>`;
 
     const buttons= document.createElement('div');
-      buttons.innerHTML=`<button id='remove'>Remove</button>
-                        <button id='read'>Read</button>`
+      buttons.innerHTML=`<button class='remove'>Remove</button>
+                        <button class='read'>Read</button>`
     container.appendChild(content);
     content.appendChild(title);
     title.appendChild(aboutBook);
     aboutBook.appendChild(buttons);
-    document.querySelector('#remove').addEventListener('click',()=>removeCard(book.uuid))
-    document.querySelector('#read').addEventListener('click',()=>readBook(book.uuid))
+    const removeBtn=  buttons.querySelector('.remove');
+    removeBtn.addEventListener('click',()=>removeCard(book.uuid))
+    buttons.querySelector('.read').addEventListener('click',()=>readBook(book.uuid))
   }
 
 
@@ -78,7 +79,7 @@ const submitFrom= document.querySelector('#form');
 submitFrom.addEventListener('submit',addBookToLibrary)
 
 function removeCard(id){
-  myLibrary= myLibrary.filter(book=>book.uuid!==id);
+  myLibrary = myLibrary.filter(book=>book.uuid!==id);
   handleDom(myLibrary);
 }
 
