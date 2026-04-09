@@ -14,7 +14,7 @@ addBook.addEventListener('click',hideForm);
 function addBookToLibrary(e) {
   e.preventDefault();
 
-  const form= document.querySelector('#form');
+
  const name= document.getElementById('name').value ;
   const author= document.getElementById('author').value ;
   const pages= document.getElementById('pages').value ;
@@ -44,7 +44,7 @@ function handleDom(books){
     }else{
      read= " i haven't read it ";
     }
-    console.log(`book name is : ${book.name} and it's author is ${book.author} and it has ${book.pages} pages and ${read}`)
+    // console.log(`book name is : ${book.name} and it's author is ${book.author} and it has ${book.pages} pages and ${read}`)
  
     const content=  document.createElement('div');
     content.classList.add("content");
@@ -55,15 +55,17 @@ function handleDom(books){
                          <div>pages: ${book.pages}</div>
                          <p>${read}</p>`;
 
-    const buttons= document.createElement('button');
-    buttons.textContent=`remove`
+    const buttons= document.createElement('div');
+      buttons.innerHTML=`<button id='remove'>Remove</button>
+                        <button id='read'>Read</button>`
     container.appendChild(content);
     content.appendChild(title);
     title.appendChild(aboutBook);
     aboutBook.appendChild(buttons);
-    buttons.addEventListener('click',()=>removeCard(book.uuid))
+    document.querySelector('#remove').addEventListener('click',()=>removeCard(book.uuid))
+    document.querySelector('#read').addEventListener('click',()=>readBook(book.uuid))
   }
-  // hideForm();
+
 
 }
 
@@ -72,10 +74,17 @@ function hideForm(){
 }
 
 
-const submitBtn= document.querySelector('#submit');
-submitBtn.addEventListener('click',addBookToLibrary)
+const submitFrom= document.querySelector('#form');
+submitFrom.addEventListener('submit',addBookToLibrary)
 
 function removeCard(id){
   myLibrary= myLibrary.filter(book=>book.uuid!==id);
   handleDom(myLibrary);
+}
+
+function readBook(id){
+    const book = myLibrary.find(book1=>book1.uuid===id);
+    book.isRead ? book.isRead=false : book.isRead=true;
+
+    handleDom(myLibrary);
 }
