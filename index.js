@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 
 function Book(name,author,pages,isRead) {
   this.name=name;
@@ -36,7 +36,7 @@ function handleDom(books){
       container.innerHTML='';
 
   let read;
-  for(book of books){
+  for(let book of books){
 
     
     if (book.isRead==true){
@@ -61,9 +61,9 @@ function handleDom(books){
     content.appendChild(title);
     title.appendChild(aboutBook);
     aboutBook.appendChild(buttons);
-  
+    buttons.addEventListener('click',()=>removeCard(book.uuid))
   }
-  hideForm();
+  // hideForm();
 
 }
 
@@ -74,3 +74,8 @@ function hideForm(){
 
 const submitBtn= document.querySelector('#submit');
 submitBtn.addEventListener('click',addBookToLibrary)
+
+function removeCard(id){
+  myLibrary= myLibrary.filter(book=>book.uuid!==id);
+  handleDom(myLibrary);
+}
